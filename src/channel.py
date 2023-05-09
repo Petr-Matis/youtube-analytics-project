@@ -12,7 +12,7 @@ class Channel:
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
         channel_object = self.youtube.channels().list(id=channel_id, part='snippet,statistics').execute()
-        self.channel_id = channel_id
+        self._channel_id = channel_id
         self.title = channel_object["items"][0]["snippet"]["title"]
         self.description = channel_object["items"][0]["snippet"]['description']
         self.url = f"https://www.youtube.com/channel/{channel_object['items'][0]['id']}"
@@ -26,3 +26,18 @@ class Channel:
         channel = self.youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
         return print(json.dumps(channel, indent=2, ensure_ascii=False))
 
+    @property
+    def channel_id(self):
+        return self._channel_id
+
+    @channel_id.setter
+    def channel_id(self, name):
+        raise AttributeError("property 'channel_id' of 'Channel' object has no setter")
+
+    @classmethod
+    def get_service(cls):
+        return cls.youtube
+
+    def to_json(self, path):
+        with open(path, 'w', encoding='utf-8') as file:
+            json.dump(self.__dict__, file, ensure_ascii=False)
