@@ -41,3 +41,51 @@ class Channel:
     def to_json(self, path):
         with open(path, 'w', encoding='utf-8') as file:
             json.dump(self.__dict__, file, ensure_ascii=False)
+
+    def __str__(self):
+        """
+        Возвращающий название и ссылку на канал
+        """
+        return f"{self.title} ({self.url})"
+
+    def __add__(self, other):
+        """
+        Сложение подписчиков двух каналов
+        """
+        return int(self.subscriber_count) + int(other.subscriber_count)
+
+    def __sub__(self, other):
+        """
+        Вычитание подписчиков двух каналов
+        """
+        return int(self.subscriber_count) - int(other.subscriber_count)
+
+    def __ge__(self, other):
+        """
+        Сравнение подписчиков двух каналов
+        """
+        return int(self.subscriber_count) >= int(other.subscriber_count)
+
+    def __gt__(self, other):
+        """
+        Сравнение подписчиков двух каналов
+        """
+        return int(self.subscriber_count) > int(other.subscriber_count)
+
+    def __le__(self, other):
+        """
+        Сравнение подписчиков двух каналов
+        """
+        return int(self.subscriber_count) <= int(other.subscriber_count)
+
+    def __lt__(self, other):
+        """
+        Сравнение подписчиков двух каналов
+        """
+        return int(self.subscriber_count) < int(other.subscriber_count)
+
+    def __eq__(self, other):
+        """
+        Сравнение подписчиков двух каналов
+        """
+        return int(self.subscriber_count) == int(other.subscriber_count)
